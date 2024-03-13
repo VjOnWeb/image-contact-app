@@ -1,0 +1,20 @@
+{
+  "development": {
+    "username": "root",
+    "password": "TozG6lJy3JFU4DnVBmroRDFAzHj1BZ21",
+    "database": "postdbonrender",
+    "host": "dpg-cnmv8q2cn0vc738gd5b0-a.singapore-postgres.render.com",
+    "dialect": "mysql"
+  },
+  "test": {
+  },
+  "production": {
+    
+    "username": "root",
+    "password": "TozG6lJy3JFU4DnVBmroRDFAzHj1BZ21",
+    "database": "postdbonrender",
+    "host": "dpg-cnmv8q2cn0vc738gd5b0-a.singapore-postgres.render.com",
+    "dialect": "mysql"
+  
+  }
+}

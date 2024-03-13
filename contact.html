@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        
+        .contact {
+            background-color: #ffffff;
+            padding: 50px 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 50px auto;
+        }
+        
+        .contact .heading {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .contact .heading span {
+            font-size: 1.5rem;
+            color: #007bff;
+        }
+        
+        .contact .heading h1 {
+            font-size: 2.5rem;
+            color: #000000;
+        }
+        
+        .contact form {
+            background-color: transparent;
+            border: none;
+        }
+        
+        .contact form .input-field {
+            margin-bottom: 20px;
+        }
+        
+        .contact form label {
+            font-size: 1rem;
+            color: #333333;
+        }
+        
+        .contact form input[type="text"],
+        .contact form input[type="email"],
+        .contact form input[type="number"],
+        .contact form textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            background-color: #f8f9fa;
+            transition: border-color 0.3s ease;
+        }
+        
+        .contact form input[type="text"]:focus,
+        .contact form input[type="email"]:focus,
+        .contact form input[type="number"]:focus,
+        .contact form textarea:focus {
+            border-color: #007bff;
+        }
+        
+        .contact form .btn {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #ffffff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .contact form .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <!-- <a  class=" text-center mt-5" href="http://localhost:7878/"> Contact us</a> -->
+    <a  class=" text-center mt-5" href="/"> Home Page</a>
+
+    <!-- contact section start -->
+    <section class="contact" id="contact">
+        <div class="heading">
+            <span>Have a question?</span>
+            <h1>Contact Us</h1>
+        </div>
+        <form id="contact-form" action="">
+            <div class="input-field">
+                <label for="name">Name <sup>*</sup></label><br>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="input-field">
+                <label for="email">Email <sup>*</sup></label><br>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="input-field">
+                <input type="checkbox" id="sendCopy" name="sendCopy">
+                <label for="sendCopy">Check this box to get a mail copy for your mail ID</label>
+            </div>
+            
+            <div class="input-field">
+                <label for="number">Phone Number <sup>*</sup></label><br>
+                <input type="tel" id="number" name="number" maxlength="10" required>
+            </div>
+            <div class="input-field">
+                <label for="message">Message <sup>*</sup></label><br>
+                <textarea id="message" name="message" rows="5" required></textarea>
+            </div>
+            <!-- <button class="btn" type="submit"> -->
+                <button class="btn" type="button" onclick="sendEmail()">Send Message</button>
+        </form>
+    </section>
+    <script>
+        function sendEmail() {
+            var name = document.getElementById('name').value;
+            var email = document.getElementById('email').value;
+            var number = document.getElementById('number').value;
+            var message = document.getElementById('message').value;
+            var sendCopy = document.getElementById('sendCopy').checked;
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/send-email', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        alert('Email sent successfully!');
+                        // Optionally, reset the form after successful submission
+                        document.getElementById('contact-form').reset();
+                    } else {
+                        alert('Failed to send email. Please try again later.');
+                    }
+                }
+            };
+            var data = JSON.stringify({ name: name, email: email, number: number, message: message, sendCopy: sendCopy });
+            xhr.send(data);
+        }
+</script>
+
+</body>
+</html>
