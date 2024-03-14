@@ -116,11 +116,20 @@ const transporter = nodemailer.createTransport({
 
 // Route to handle form submission
 app.post('/send-email', (req, res) => {
-    const { name, email, number, message } = req.body;
+    const { name, email, number, message, sendCopy } = req.body;
+
+    
+  // Array to store recipient emails
+  let recipients = ['vijayanandextra@gmail.com'];
+  // Add email to recipients if checkbox is checked
+  if (sendCopy) {
+      recipients.push(email);
+  }
+
 
     const mailOptions = {
         from: 'vijayanandvj1998@gmail.com',
-        to: 'vijayanandextra@gmail.com',
+        to: recipients.join(', '), // Join recipient emails with comma
         subject: 'New Contact Form Submission',
         text: `
         ${html}
@@ -196,7 +205,7 @@ app.delete('/images/:id', async (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+  console.log(`Server is running on port http://localhost:${port}`);
 });
 
   
