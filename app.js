@@ -9,10 +9,6 @@ require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT || 7272;
-const html = `
-<h1 style="color:green"> Hello Guys </h1>
-<p> Vijay from Node mailer</p>
-`
 
 app.use(express.json());
 
@@ -102,6 +98,12 @@ app.get('/contact', (req, res) => {
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+const html = `
+<h1 style="color:green"> Hello Guys </h1>
+<p> Vijay from Node mailer</p>
+`
+
+
 // Nodemailer transporter configuration
 const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
@@ -123,19 +125,20 @@ app.post('/send-email', (req, res) => {
   if (sendCopy) {
       recipients.push(email);
   }
-
+  
   const mailOptions = {
-      from: 'vijayanandvj1998@gmail.com',
-      to: recipients.join(', '), // Join recipient emails with comma
-      subject: 'New Contact Form Submission',
-      text: `
-      ${html}
-          Name: ${name}
-          Email: ${email}
-          Phone Number: ${number}
-          Message: ${message}
-      `
-  };
+    from: 'vijayanandvj1998@gmail.com',
+    to: recipients.join(', '), // Join recipient emails with comma
+    subject: 'New Contact Form Submission',
+    html: `
+        ${html}
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Phone Number:</strong> ${number}</p>
+        <p><strong>Message:</strong> ${message}</p>
+    `
+};
+
     console.log("Success Message Sent :" + mailOptions.messageId);
 
 
@@ -152,9 +155,7 @@ app.post('/send-email', (req, res) => {
 });
 
 /* Contact Code Ends*/
-
 //----------------------------------------------------//
-
 /* Image Upload  Code Starts*/
 
 // Image Upload
