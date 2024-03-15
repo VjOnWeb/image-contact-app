@@ -125,7 +125,7 @@ app.post('/send-email', (req, res) => {
   if (sendCopy) {
       recipients.push(email);
   }
-  
+
   const mailOptions = {
     from: 'vijayanandvj1998@gmail.com',
     to: recipients.join(', '), // Join recipient emails with comma
@@ -138,7 +138,7 @@ app.post('/send-email', (req, res) => {
         <p><strong>Message:</strong> ${message}</p>
     `
 };
-
+ 
     console.log("Success Message Sent :" + mailOptions.messageId);
 
 
